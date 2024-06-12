@@ -1,6 +1,10 @@
-import { EmailTemplate } from "@/components/email-template";
+import EmailTemplate from "@/emails/verificationEmail";
 import { Resend } from "resend";
 import * as React from "react";
+import bcrypt from "bcrypt";
+import { dbConnect } from "@/lib/dbConnect";
+import { UserModel } from "@/model/User";
+import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,7 +14,10 @@ export async function POST() {
       from: "Acme <onboarding@resend.dev>",
       to: ["delivered@resend.dev"],
       subject: "Hello world",
-      react: EmailTemplate({ firstName: "John" }) as React.ReactElement,
+      react: EmailTemplate({
+        username: "John",
+        otp: "123456",
+      }) as React.ReactElement,
     });
 
     if (error) {

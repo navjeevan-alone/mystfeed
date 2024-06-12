@@ -4,7 +4,7 @@ type connectionObject = {
   isConnected?: number;
 };
 const connection: connectionObject = {};
-async function dbConnect(): Promise<void> {
+export async function dbConnect(): Promise<void> {
   if (connection.isConnected) {
     console.log("Already connected");
     return;
@@ -15,7 +15,7 @@ async function dbConnect(): Promise<void> {
     connection.isConnected = db.connections[0].readyState;
     console.log("MongoDB Connected");
   } catch (error: any) {
-    console.error("DB Connection failed,Reason:",error.message);
+    console.error("DB Connection failed,Reason:", error.message);
     process.exit(1);
   }
 }

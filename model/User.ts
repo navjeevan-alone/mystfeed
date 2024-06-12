@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface Message extends Document {
+export interface Message extends Document {
   content: string;
   createdAt: Date;
 }
@@ -65,10 +65,10 @@ const UserSchema = new Schema<User>({
   message: [MessageSchema],
 });
 
-const User =
+export const UserModel =
   (mongoose.models.User as mongoose.Model<User>) ||
   mongoose.model<User>("User", UserSchema);
 
-const Message =
+export const MessageModel =
   (mongoose.models.Message as mongoose.Model<Message>) ||
   mongoose.model<Message>("Message", MessageSchema);
