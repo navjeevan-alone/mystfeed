@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit ,Raleway,Poppins} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Outfit({ subsets: ["latin"] });
+const fontFamily = Outfit({ subsets: ["latin"],weight:["100","200","300","400"]});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}><ThemeProvider
+      <body className={fontFamily.className}><ThemeProvider
         attribute="class"
         defaultTheme="dark"
         enableSystem
