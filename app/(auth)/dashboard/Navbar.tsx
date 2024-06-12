@@ -9,11 +9,17 @@ function Navbar() {
                     <h1 className="feedUp text-3xl font-bold">Mist Chat
                     </h1>
                 </Link>
+                <h2 className="text-2xl pt-1" >Welcome, User</h2>
                 <Button asChild>
                     <Link href="/signout">
                         Log Out
                     </Link>
                 </Button>
+                {/* <Button asChild>
+                    <Link href="/signup">
+                        Sign Up
+                    </Link>
+                </Button> */}
             </div>
         </div>
     )

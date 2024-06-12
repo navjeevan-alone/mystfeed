@@ -21,8 +21,8 @@ function Dashboard() {
                 </div>
             </div>
             <div className="container mt-10 grid xxl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:gap-4  gap-2" >
-                <div className="flex justify-between xxl:col-span-4 lg:col-span-3 md:col-span-2 sm:col-span-1  py-3 border-t ">
-                    <h1 className=" text-4xl ">Your Feedbacks</h1>
+                <div className="flex justify-between xxl:col-span-4 lg:col-span-3 md:col-span-2 sm:col-span-1  pt-3 border-t ">
+                    <h1 className=" text-3xl">Your Feedbacks</h1>
                     <Button variant="outline" size="icon">
                         <RotateCw className="h-4 w-4" />
                     </Button>
