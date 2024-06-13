@@ -8,7 +8,7 @@ export default function Home() {
       <div className="min-h-screen">
         <h1 className="text-center text-4xl font-bold">Welcome to</h1>
         <h1 className="text-center text-4xl font-bold">Mist Chat </h1>
-        <p className="text-center text-lg ">Send Anonymous message to your friend</p>
+        <p className="text-center">Send Anonymous message to your friend</p>
         <Button className="mx-auto" asChild>
           <Link href="/signup">Create Link</Link>
         </Button>

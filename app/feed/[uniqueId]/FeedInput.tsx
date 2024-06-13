@@ -19,7 +19,7 @@ import { toast } from "@/components/ui/use-toast"
 
 import { feedMessageSchema } from "@/schemas/feedMessageSchema"
 
- 
+
 
 export default function FeedInput() {
     const form = useForm<z.infer<typeof feedMessageSchema>>({
@@ -49,7 +49,7 @@ export default function FeedInput() {
                             <FormControl>
                                 <Textarea
                                     placeholder="Who is your first crush ?"
-                                    className="resize-none text-md"
+                                    className="resize-none "
                                     {...field}
                                 />
                             </FormControl>

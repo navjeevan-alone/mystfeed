@@ -36,29 +36,30 @@ function FeedbackCard({ id, message, timestamp }: Props) {
                 <p>{timestamp}</p>
             </CardContent>
             <CardFooter className="flex gap-2 place-items-start">
-                <Button variant="default" className="text-md"><Reply className="h-5 w-5 mr-1" /> Reply</Button>
+                <Button variant="default" className=""><Reply className="h-5 w-5 mr-1" /> Reply</Button>
 
                 <Dialog>
-                    <DialogTrigger>
-                        <Button variant="destructive" className="text-md"><Trash className="h-5 w-5 mr-2" />Delete</Button>
-                    </DialogTrigger>
+                    <Button variant="destructive" asChild>
+                        <DialogTrigger>
+                            <Trash className="h-5 w-5 mr-2" />
+                            Delete
+                        </DialogTrigger>
+                    </Button>
                     <DialogContent>
                         <DialogHeader>
                             <DialogTitle>Are you absolutely sure?</DialogTitle>
                             <DialogDescription>
-                                This action cannot be undone. This will permanently delete your account
-                                and remove your data from our servers.
+                                This action cannot be undone. This will permanently delete this feedback!
                             </DialogDescription>
                         </DialogHeader>
-                        <DialogFooter>
-                            <Button variant="destructive" >Delete</Button>
+                        <DialogFooter className="flex gap-4" >
                             <DialogClose>
-                                <Button variant="outline" >Cancel</Button>
+                                Cancel
                             </DialogClose>
+                            <Button variant="destructive" >Delete</Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
-
             </CardFooter>
         </Card>
 
