@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "lib/password.js"
-  ],
+, "middleware.ts"  ],
   "exclude": ["node_modules"]
 }
