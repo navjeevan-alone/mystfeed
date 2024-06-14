@@ -40,7 +40,9 @@ export async function POST(request: Request) {
       } else {
         // Update existingUserByEmail with new details
         existingUserByEmail.username = username;
-        existingUserByEmail.password = JSON.stringify( await hashPassword(password));
+        existingUserByEmail.password = JSON.stringify(
+          await hashPassword(password)
+        );
         existingUserByEmail.verifyCode = genVerifyCode().toString();
         existingUserByEmail.verifyCodeExpiry = new Date(
           new Date().getTime() + 20 * 60000

@@ -15,7 +15,7 @@ function error() {
           <Link href="/dashboard"> Go To Homepage
           </Link>
         </Button>
-      </div>
+      </div> 
     </div>
   )
 }

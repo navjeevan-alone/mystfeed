@@ -4,17 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Home() {
   return (
-    <main className="my-2 py-2">
-      <div className="min-h-screen">
-        <h1 className="text-center text-4xl font-bold">Welcome to</h1>
-        <h1 className="text-center text-4xl font-bold">Mist Chat </h1>
-        <p className="text-center">Send Anonymous message to your friend</p>
+
+    <div className="min-h-screen flex items-center">
+      <div className="container flex flex-col gap-2 justify-center items-center">
+        <h1 className="text-center text-4xl font-bold"></h1>
+        <h1 className="text-center text-4xl font-bold">Welcome to Myst Chat </h1>
+        <p className="text-center">A place to troll your friend without getting caught!</p>
         <Button className="mx-auto" asChild>
           <Link href="/signup">Create Link</Link>
         </Button>
       </div>
+    </div>
 
 
-    </main>
   );
 }
