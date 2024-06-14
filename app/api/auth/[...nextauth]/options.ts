@@ -4,6 +4,8 @@ import { UserModel } from "@/model/User";
 import { NextAuthOptions } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
+
 
 interface CredentialsType {
   email: String;
@@ -54,6 +56,12 @@ export const authOptions: NextAuthOptions = {
           return null; // Return null on any error (authentication failed)
         }
       },
+    }),
+    GitHubProvider({
+      //@ts-ignore
+      clientId: process.env.GITHUB_ID,
+      //@ts-ignore
+      clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
   pages: {

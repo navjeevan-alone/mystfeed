@@ -3,6 +3,8 @@ import { Inter, Outfit ,Raleway,Poppins} from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { SessionProvider } from "next-auth/react"
+import AuthProvider from "@/context/AuthProvider";
 
 const fontFamily = Outfit({ subsets: ["latin"],weight:["100","200","300","400"]});
 
@@ -12,11 +14,12 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
+    <AuthProvider>
     <html lang="en">
       <body className={fontFamily.className}><ThemeProvider
         attribute="class"
@@ -30,5 +33,6 @@ export default function RootLayout({
 
       </body>
     </html>
+    </AuthProvider>
   );
 }
