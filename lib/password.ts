@@ -19,7 +19,7 @@ export async function hashPassword(
 ): Promise<HashPasswordResult> {
   try {
     const hash = await bcrypt.hash(password, saltRounds);
-    console.log("Hashed password:", hash);
+
     return { hashedPassword: hash, success: true, error: null };
   } catch (err: any) {
     console.error(err);
