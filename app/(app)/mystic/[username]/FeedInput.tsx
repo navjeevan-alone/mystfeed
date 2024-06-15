@@ -19,16 +19,7 @@ import { toast } from "@/components/ui/use-toast"
 
 import { feedMessageSchema } from "@/schemas/feedMessageSchema"
 
-const FormSchema = z.object({
-    content: z
-        .string()
-        .min(10, {
-            message: "content must be at least 10 characters.",
-        })
-        .max(160, {
-            message: "content must not be longer than 30 characters.",
-        }),
-})
+
 
 export default function FeedInput() {
     const form = useForm<z.infer<typeof feedMessageSchema>>({
@@ -58,7 +49,7 @@ export default function FeedInput() {
                             <FormControl>
                                 <Textarea
                                     placeholder="Who is your first crush ?"
-                                    className="resize-none text-md"
+                                    className="resize-none "
                                     {...field}
                                 />
                             </FormControl>
