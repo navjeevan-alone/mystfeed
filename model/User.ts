@@ -10,7 +10,7 @@ export interface User extends Document {
   isAcceptingMessage: boolean;
   isVerified: boolean;
   verfiedAt?: Date;
-  message: [{ type: mongoose.Schema.Types.ObjectId; ref: "MessageModel" }];
+  message: [{ type: mongoose.Schema.Types.ObjectId; ref: "Message" }];
 }
 
 const UserSchema = new Schema<User>({
