@@ -40,6 +40,7 @@ export async function GET(request: Request) {
     return new Response(
       JSON.stringify({
         success: true,
+        message: "Got all messages ",
         messages,
       }),
       {
