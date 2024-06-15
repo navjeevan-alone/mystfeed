@@ -17,7 +17,6 @@ export async function GET(request: Request): Promise<Response> {
 
         const result = usernameQuerySchema.safeParse(queryParam);
 
-
         if (!result.success) {
             const usernameErrors = result.error.format().username?._errors || [];
             return new Response(
@@ -29,20 +28,25 @@ export async function GET(request: Request): Promise<Response> {
             );
         }
 
-
-        console.log(result.data.username)
         const user = await UserModel.findOne({ username: result.data.username });
-        user && console.log(user)
-        // TODO :condition only getting true
-        if (user && !user) {
 
-            return new Response(JSON.stringify({ success: true, message: "Username is unique" }));
+        if (!user) {
+            return new Response(
+                JSON.stringify({ success: true, message: "Username is unique" }),
+                { status: 200 }
+            );
         }
 
-        return new Response(JSON.stringify({ success: false, message: "Username already exists, Try another!" }));
+        return new Response(
+            JSON.stringify({ success: false, message: "Username already exists, try another!" }),
+            { status: 409 }
+        );
 
     } catch (error: any) {
-        console.log(error);
-        return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
+        console.error(error);
+        return new Response(
+            JSON.stringify({ success: false, message: error.message }),
+            { status: 500 }
+        );
     }
 }

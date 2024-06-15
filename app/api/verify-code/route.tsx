@@ -13,6 +13,12 @@ export async function POST(request: Request): Promise<Response> {
         console.log("User found:", user);
 
         if (user !== null) {
+            if (user.isVerified === true) {
+                return new Response(
+                    JSON.stringify({ success: false, message: "Your account is already verified." }),
+                    { status: 409 }
+                );
+            }
             if (user.verifyCode == verifyCode) {
                 const now = new Date();
                 if (user.verifyCodeExpiry && user.verifyCodeExpiry > now) {

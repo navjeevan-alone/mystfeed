@@ -24,6 +24,19 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!user.isVerified) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "User is not verified",
+        }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
     if (!user.isAcceptingMessage) {
       return new Response(
         JSON.stringify({
@@ -43,11 +56,11 @@ export async function POST(request: Request) {
       username,
       userId: user._id,
     });
-    
+
     // @ts-ignore working fine
     user.message.push(message);
     await user.save();
- 
+
     return new Response(
       JSON.stringify({
         success: true,
