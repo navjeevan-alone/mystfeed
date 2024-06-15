@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         existingUserByEmail.password = JSON.stringify(
           await hashPassword(password)
         );
-        existingUserByEmail.verifyCode = genVerifyCode().toString();
+        existingUserByEmail.verifyCode = genVerifyCode();
         existingUserByEmail.verifyCodeExpiry = new Date(
           new Date().getTime() + 24 * 60 * 60000
         );
@@ -93,11 +93,11 @@ export async function POST(request: Request) {
       });
       // TODO : uncomment for final deployment
       // Send verification email
-      // const sendMail = sendVerificationEmail(
-      //   email,
-      //   username,
-      //   verifyCode.toString()
-      // );
+      const sendMail = sendVerificationEmail(
+        email,
+        username,
+        verifyCode.toString()
+      );
 
       return new Response(
         JSON.stringify({

@@ -44,6 +44,7 @@ export default function VerificationEmail({ username, verifyCode }: Verification
                 </Row>
                 <Row>
                     <Text>{verifyCode}</Text>
+                    <Text>Only vaild for 1 hour </Text>
                 </Row>
                 <Row>
                     <Text>
