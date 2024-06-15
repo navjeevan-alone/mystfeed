@@ -1,0 +1,49 @@
+{
+  $jsonSchema: {
+    required: [
+      'username',
+      'email',
+      'password',
+      'verifyCode',
+      'verifyCodeExpiry',
+      'isVerified',
+      'isAcceptingMessage'
+        ],
+    properties: {
+      username: {
+        type: 'string',
+        description: 'Username must be a string.'
+            },
+      email: {
+        type: 'string',
+        description: 'Email must be a string.',
+        pattern: '^[^s@
+                ]+@[^s@
+                ]+.[^s@
+                ]+$'
+            },
+      password: {
+        type: 'string',
+        description: 'Password must be a string.'
+            },
+      verifyCode: {
+        type: 'string',
+        description: 'Verify code must be a string.'
+            },
+      isVerified: {
+        type: 'boolean',
+        description: 'Is verified must be a boolean.'
+            },
+      isAcceptingMessage: {
+        type: 'boolean',
+        description: 'Is accepting message must be a boolean.'
+            },
+      message: {
+        type: 'array',
+        items: {
+          bsonType: 'object'
+                }
+            }
+        }
+    }
+}

@@ -29,14 +29,14 @@ export default function LoginForm() {
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="m@example.com"
+                                placeholder="me@example.com"
                                 required
                             />
                         </div>
                         <div className="grid gap-2">
                             <div className="flex items-center">
                                 <Label htmlFor="password">Password</Label>
-                                <Link href="#" className="ml-auto inline-block text-sm underline">
+                                <Link href="/" className="ml-auto inline-block text-sm underline">
                                     Forgot your password?
                                 </Link>
                             </div>
@@ -46,12 +46,12 @@ export default function LoginForm() {
                             Login
                         </Button>
                         <Button variant="outline" className="w-full">
-                            Login with Google
+                            Login with Github
                         </Button>
                     </div>
                     <div className="mt-4 text-center text-sm">
                         Don&apos;t have an account?{" "}
-                        <Link href="#" className="underline">
+                        <Link href="/auth/signup" className="underline">
                             Sign up
                         </Link>
                     </div>
