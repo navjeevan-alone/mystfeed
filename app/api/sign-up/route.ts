@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         );
 
         const updatedUser = await existingUserByEmail.save();
-
+        // TODO : uncomment for final deployment
         // const sendMail = sendVerificationEmail(
         //   email,
         //   username,
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
         verifyCodeExpiry,
         isVerified: false,
       });
-
+      // TODO : uncomment for final deployment
       // Send verification email
       // const sendMail = sendVerificationEmail(
       //   email,
