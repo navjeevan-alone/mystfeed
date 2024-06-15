@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { UserPlus } from "lucide-react"
 import FeedInput from './FeedInput';
 
-function SendFeedPage() {
+export default function Page() {
     return (
         <div className='container max-w-[850px] my-4 px-4 py-2'>
             <h1 className="text-center text-4xl mb-4 font-bold">Public Profile Link</h1>
@@ -19,5 +19,3 @@ function SendFeedPage() {
         </div>
     )
 }
-
-export default SendFeedPage

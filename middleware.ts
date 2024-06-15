@@ -3,13 +3,15 @@ import { getToken } from "next-auth/jwt";
 export { default } from "next-auth/middleware";
 
 export const config = {
+  // TODO : change paths 
   matcher: [
-    "/dashboard/:path*",
-    "/sign-in",
-    "/auth/:path*",
-    "/sign-up",
-    "/",
-    "/verify/:path*",
+    "/abc/:path*",
+    
+    // "/sign-in",
+    // "/auth/:path*",
+    // "/sign-up",
+    // "/",
+    // "/verify/:path*",
   ],
 };
 

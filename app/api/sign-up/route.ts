@@ -45,7 +45,7 @@ export async function POST(request: Request) {
         );
         existingUserByEmail.verifyCode = genVerifyCode().toString();
         existingUserByEmail.verifyCodeExpiry = new Date(
-          new Date().getTime() + 20 * 60000
+          new Date().getTime() + 24 * 60 * 60000
         );
 
         const updatedUser = await existingUserByEmail.save();

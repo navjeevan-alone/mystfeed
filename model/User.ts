@@ -1,32 +1,17 @@
 import mongoose, { Document, Schema } from "mongoose";
-
-export interface Message extends Document {
-  content: string;
-  createdAt: Date;
-}
+import { Message, MessageSchema } from "@/model/Message";
 
 export interface User extends Document {
   username: string;
   email: string;
   password: string;
-  verifyCode: string;
-  verifyCodeExpiry: Date;
+  verifyCode: number | null;
+  verifyCodeExpiry: Date | null;
   isAcceptingMessage: boolean;
   isVerified: boolean;
-  message: Message[]; // Add the type for the message field
+  verfiedAt?: Date;
+  message: [{ type: mongoose.Schema.Types.ObjectId; ref: "MessageModel" }];
 }
-
-const MessageSchema: Schema<Message> = new Schema({
-  content: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    required: true,
-    default: Date.now(),
-  },
-});
 
 const UserSchema = new Schema<User>({
   username: {
@@ -45,15 +30,20 @@ const UserSchema = new Schema<User>({
     required: [true, "Password is required!"],
   },
   verifyCode: {
-    type: String,
+    type: Number || null,
     required: true,
   },
   verifyCodeExpiry: {
-    type: Date,
+    type: Date || null,
     required: true,
   },
   isVerified: {
     type: Boolean,
+    required: true,
+    default: false,
+  },
+  verfiedAt: {
+    type: Date || null,
     required: true,
     default: false,
   },
@@ -68,7 +58,3 @@ const UserSchema = new Schema<User>({
 export const UserModel =
   (mongoose.models.User as mongoose.Model<User>) ||
   mongoose.model<User>("User", UserSchema);
-
-export const MessageModel =
-  (mongoose.models.Message as mongoose.Model<Message>) ||
-  mongoose.model<Message>("Message", MessageSchema);
