@@ -1,3 +1,0 @@
-# NGL
-
-### Connected to Atlas

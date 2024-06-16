@@ -7,7 +7,20 @@ import { Button } from "@/components/ui/button"
 import Navbar from "./Navbar"
 
 
-function Dashboard() {
+export async function fetchMessages() {
+    try {
+        const res = await fetch('http://localhost:3000/api/message/get-all?username=username5');
+        const data = res.json();
+        data && console.log("data : ", data)
+        return data
+    } catch (error: any) {
+        return error.message
+
+    }
+}
+
+export default async function Dashboard() {
+    const data = await fetchMessages()
     return (
         <div className="dashboard">
             <Navbar></Navbar>
@@ -27,12 +40,13 @@ function Dashboard() {
                         <RotateCw className="h-4 w-4" />
                     </Button>
                 </div>
-                <FeedbackCard message="Hi what are you doing babes" id="1" timestamp={'Jan 12, 24 8:44PM'} ></FeedbackCard>
-                <FeedbackCard message="Hi what are you doing babes" id="1" timestamp={'Jan 12, 24 8:44PM'} ></FeedbackCard>
-                <FeedbackCard message="Hi what are you doing babes" id="1" timestamp={'Jan 12, 24 8:44PM'} ></FeedbackCard>
+
+                {/* Render FeedbackCard components based on messages */}
+                {/* @ts-ignore */}
+                {/* {data.messages.map((message: any, index: any) => (
+                    <FeedbackCard key={index} message={message} />
+                ))} */}
             </div>
         </div>
     )
 }
-
-export default Dashboard

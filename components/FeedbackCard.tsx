@@ -1,3 +1,4 @@
+"use client"
 import {
     Card,
     CardContent,
@@ -20,20 +21,27 @@ import {
 import { Trash, Reply } from "lucide-react"
 import React from 'react'
 import { Button } from '@/components/ui/button';
+import { formatRelativeTime } from "@/lib/timeUtils"
+import { Message } from "@/model/Message"
 interface Props {
-    id: String,
-    message: String,
-    timestamp: String
+    _id: string;
+    content: string;
+    username: string;
+    userId: string;
+    reply: string | null; // Assuming reply can be null based on your sample
+    isPublished?: boolean;
+    createdAt?: string; // Assuming createdAt is a string representation of a date
+    __v?: number;
 }
-function FeedbackCard({ id, message, timestamp }: Props) {
+function FeedbackCard({ message }: Message) {
     return (
         <Card className=" flex-1 flex-basis-[256px] ">
             <CardHeader>
-                <CardTitle className="font-normal" >{message}</CardTitle>
+                <CardTitle className="font-normal" >{message.content}</CardTitle>
                 <CardDescription></CardDescription>
             </CardHeader>
             <CardContent>
-                <p>{timestamp}</p>
+                <p>{formatRelativeTime(message.createdAt)}</p>
             </CardContent>
             <CardFooter className="flex gap-2 place-items-start">
                 <Button variant="default" className=""><Reply className="h-5 w-5 mr-1" /> Reply</Button>
