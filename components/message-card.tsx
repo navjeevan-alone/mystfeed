@@ -31,7 +31,8 @@ const feedbackSchema = z.object({
 });
 
 type FeedbackSchema = z.infer<typeof feedbackSchema>;
-function FeedbackCard({ message }: { message: MessageProps }) {
+function MessageCard({ message }: { message: MessageProps }) {
+    // TODO : replace with logged in username implement authentication
     const username = "username6"
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
@@ -45,23 +46,23 @@ function FeedbackCard({ message }: { message: MessageProps }) {
 
     const handleSubmit = async (data: FeedbackSchema) => {
         setIsSubmitting(true);
-        
+
         try {
-            if(data.reply ===""){
+            if (data.reply === "") {
                 toast({
-                    title:"Submission Failed",
-                    description:"Reply can't be empty",
-                    variant:"destructive"
+                    title: "Submission Failed",
+                    description: "Reply can't be empty",
+                    variant: "destructive"
                 })
-                return 
+                return
             }
-            if(data.reply === message.reply){
+            if (data.reply === message.reply) {
                 toast({
-                    title:"Submission Failed",
-                    description:"No change in reply",
-                    variant:"destructive"
+                    title: "Submission Failed",
+                    description: "No change in reply",
+                    variant: "destructive"
                 })
-                return 
+                return
             }
             await axios.post(`${BASE_URL}/api/message/reply/`, { messageId: message._id, reply: data.reply, username: username });
 
@@ -174,4 +175,4 @@ function FeedbackCard({ message }: { message: MessageProps }) {
     );
 }
 
-export default FeedbackCard;
+export default MessageCard;
