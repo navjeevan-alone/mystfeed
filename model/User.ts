@@ -1,7 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-import { Message, MessageSchema } from "@/model/Message";
-import { nullable } from "zod";
-
+ 
 export interface User extends Document {
   username: string;
   email: string;

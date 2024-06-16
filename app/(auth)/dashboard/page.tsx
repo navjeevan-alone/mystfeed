@@ -5,22 +5,38 @@ import { Switch } from "@/components/ui/switch"
 import { RotateCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Navbar from "./Navbar"
+import axios from "axios"
+import {BASE_URL} from "@/constants" 
 
+interface MessageProps {
+    _id: string;
+    content: string;
+    username: string;
+    userId: string;
+    reply: string | null; // Assuming reply is an empty string when not present
+    isPublished: boolean;
+    createdAt: string; // Assuming createdAt is a string representation of a date
+    __v: number;
+};
 
 export async function fetchMessages() {
+    const username ="username6"
     try {
-        const res = await fetch('http://localhost:3000/api/message/get-all?username=username5');
-        const data = res.json();
-        data && console.log("data : ", data)
-        return data
+        const res = await axios.get(`${BASE_URL}/api/message/get-all?username=${username}`);
+        const messages = res.data.messages || [];
+        if (!Array.isArray(messages)) {
+            throw new Error('Messages not found or not in expected format');
+        } 
+        return messages;
     } catch (error: any) {
-        return error.message
-
+        console.error("Error fetching messages:", error.message);
+        return []; // Return empty array if messages are not found or there's an error
     }
+
 }
 
 export default async function Dashboard() {
-    const data = await fetchMessages()
+    const messages = await fetchMessages()
     return (
         <div className="dashboard">
             <Navbar></Navbar>
@@ -35,17 +51,19 @@ export default async function Dashboard() {
             </div>
             <div className="container mt-10 grid xxl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:gap-4  gap-2" >
                 <div className="flex justify-between xxl:col-span-4 lg:col-span-3 md:col-span-2 sm:col-span-1  pt-3 border-t ">
-                    <h1 className=" text-2xl">Your Feedbacks</h1>
+                    <h1 className="text-2xl">Your Feedbacks</h1>
                     <Button variant="outline" size="icon">
                         <RotateCw className="h-4 w-4" />
                     </Button>
                 </div>
+                {messages.length > 0 ? (
+                    messages.map((message) => (
+                        <FeedbackCard key={message._id} message={message} />
+                    ))
+                ) : (
+                    <h3 className="text-left text-muted-foreground text-xl">No messages to display</h3>
+                )}
 
-                {/* Render FeedbackCard components based on messages */}
-                {/* @ts-ignore */}
-                {/* {data.messages.map((message: any, index: any) => (
-                    <FeedbackCard key={index} message={message} />
-                ))} */}
             </div>
         </div>
     )
