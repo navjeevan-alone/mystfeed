@@ -15,6 +15,7 @@ import { BASE_URL } from "@/constants"
 function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolean, username: string }) {
     const userLinkText = `http://localhost:3000/u/${username}`
     const [buttonText, setButtonText] = useState("Copy")
+    
     const [toggleIsAccepting, setToggleIsAccepting] = useState(isAcceptingMessage);
     const handleCopy = () => {
         let textChange;
@@ -38,7 +39,8 @@ function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolea
                 const response = await axios.post(`${BASE_URL}/api/user/toggle-allow-message`, { username });
                 console.log("Response from /api/user/toggle:", response.data);
                 // Assuming the response contains the updated isAcceptingMessage status
-                setToggleIsAccepting(response.data.isAcceptingMessage);
+                setToggleIsAccepting(!response.data.isAcceptingMessage);
+
             } catch (error) {
                 console.error("Error toggling message acceptance:", error);
             }
@@ -55,6 +57,7 @@ function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolea
             <div className="flex items-center space-x-2 my-4">
                 <Switch id="allow-feedback" checked={toggleIsAccepting} onClick={() => setToggleIsAccepting(!toggleIsAccepting)} />
                 <Label htmlFor="allow-feedback" className=" cursor-pointer text-md">Allow people to send feedbacks</Label>
+                {toggleIsAccepting.toString()}
             </div>
         </>
     )

@@ -21,8 +21,8 @@ interface MessageProps {
     __v: number;
 };
 
+const username = "username11"
 export async function fetchMessages() {
-    const username = "username6"
     try {
         const res = await axios.get(`${BASE_URL}/api/message/get-all?username=${username}`);
         const messages = res.data.messages || [];
@@ -37,7 +37,7 @@ export async function fetchMessages() {
 }
 
 export default async function Dashboard() {
-    const username = "username6"
+ 
     const user = await UserModel.findOne({ username })
 
     // console.log("user:", user)
