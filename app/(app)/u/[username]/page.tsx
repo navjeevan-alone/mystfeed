@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: { username: string } })
             </div>
             {/* TODO: Arrange in proper cards and include typesafety */}
             {messages &&
-                messages.map(message => (
+                messages.map((message) => (
                     <p key={message.id}>{message.content}</p>
                 ))
             }

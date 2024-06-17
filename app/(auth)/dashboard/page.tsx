@@ -9,17 +9,7 @@ import axios from "axios"
 import { BASE_URL } from "@/constants"
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
-
-interface MessageProps {
-    _id: string;
-    content: string;
-    username: string;
-    userId: string;
-    reply: string | null; // Assuming reply is an empty string when not present
-    isPublished: boolean;
-    createdAt: string; // Assuming createdAt is a string representation of a date
-    __v: number;
-};
+import { MessageProps } from "@/types/dbObject"
 
 const username = "username11"
 export async function fetchMessages() {
