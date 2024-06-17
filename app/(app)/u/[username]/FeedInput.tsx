@@ -16,12 +16,25 @@ import {
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/components/ui/use-toast"
-
 import { feedMessageSchema } from "@/schemas/feedMessageSchema"
+import { User } from "@/model/User"
+interface FeedInputProps {
+    username: string;
+    message?: {
+        _id: string;
+        content: string;
+        username: string;
+        userId: string;
+        reply: string;
+        isPublished: boolean;
+        createdAt: string;
+        __v: number;
+    } | null;
+    user: User | null
 
+}
 
-
-export default function FeedInput() {
+export default function FeedInput({ username, user }: FeedInputProps) {
     const form = useForm<z.infer<typeof feedMessageSchema>>({
         resolver: zodResolver(feedMessageSchema),
     })
@@ -36,7 +49,6 @@ export default function FeedInput() {
             ),
         })
     }
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 ">
@@ -45,7 +57,7 @@ export default function FeedInput() {
                     name="content"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-lg" >Send anonymous message to @username</FormLabel>
+                            <FormLabel className="text-lg" >Send anonymous message to @{username}</FormLabel>
                             <FormControl>
                                 <Textarea
                                     placeholder="Who is your first crush ?"
@@ -54,16 +66,21 @@ export default function FeedInput() {
                                 />
                             </FormControl>
                             <FormDescription>
-                                Your message is anonymous
+                                {user?.isAcceptingMessage ? (
+                                    <span className="text-muted-foreground">Your message is anonymous</span>
+                                ) : (
+                                    <span  className="text-red-600">User not accepting messages</span>
+                                )}
+
                             </FormDescription>
-                            <FormMessage />
+                            <FormMessage className="text-red-600" />
                         </FormItem>
                     )}
                 />
                 <Button type="submit">
                     <Send className="h-5 w-5 mr-2" />
-                    Send Feed</Button>
-
+                    Send Feed
+                </Button>
             </form>
         </Form>
     )

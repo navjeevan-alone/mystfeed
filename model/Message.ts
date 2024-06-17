@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { UserModel } from "@/model/User"; // Adjust the import path as needed
 
-interface Message extends Document {
+export interface Message extends Document {
   content: string;
   username: string;
   userId?: mongoose.Schema.Types.ObjectId;
