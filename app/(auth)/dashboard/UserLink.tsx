@@ -4,13 +4,12 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { Clipboard } from "lucide-react"
+import { Clipboard, Copy, SquareArrowOutUpRight } from "lucide-react"
 import { copyToClipboard } from '@/lib/clipboard'
 import { useToast } from '@/components/ui/use-toast';
 import axios from "axios"
 import { BASE_URL } from "@/constants"
-
-
+import Link from "next/link"
 
 function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolean, username: string }) {
     const userLinkText = `http://localhost:3000/u/${username}`
@@ -53,6 +52,11 @@ function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolea
             <div className="user-link flex flex-col sm:flex-row gap-2">
                 <Input type="text" value={userLinkText} className=" bg-muted text-muted-foreground text-md" disabled />
                 <Button variant="default" onClick={handleCopy}><Clipboard className="h-5 w-5 mr-2" />{buttonText}</Button>
+                <Button variant="outline" asChild>
+                    <Link href={userLinkText} target="_blank">
+<SquareArrowOutUpRight className="h-5 w-5" />
+                    </Link>
+                </Button>
             </div>
             <div className="flex items-center space-x-2 my-4">
                 <Switch id="allow-feedback" checked={toggleIsAccepting} onClick={() => setToggleIsAccepting(!toggleIsAccepting)} />

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { UserPlus } from "lucide-react"
 import FeedInput from './FeedInput';
 import { UserModel } from "@/model/User"
+import { MessageModel } from "@/model/Message"
 import { dbConnect } from '@/lib/dbConnect'
 
 export default async function Page({ params }: { params: { username: string } }) {
@@ -12,7 +13,8 @@ export default async function Page({ params }: { params: { username: string } })
     // Always connect to database first 
     await dbConnect()
     const user = await UserModel.findOne({ username })
-
+    const messages = await MessageModel.find({ username })
+    console.log(messages)
     // Convert user to a plain object
     const plainUser = user ? JSON.parse(JSON.stringify(user)) : null;
     
@@ -48,6 +50,13 @@ export default async function Page({ params }: { params: { username: string } })
                     </Link>
                 </Button>
             </div>
+            {/* TODO: Arrange in proper cards and include typesafety */}
+            {messages &&
+                messages.map(message => (
+                    <p key={message.id}>{message.content}</p>
+                ))
+            }
+
         </div >
     )
 }
