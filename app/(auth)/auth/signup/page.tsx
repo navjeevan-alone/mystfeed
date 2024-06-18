@@ -17,6 +17,7 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
+import { BASE_URL } from '@/constants';
 
 export default function SignUpForm() {
     const [username, setUsername] = useState('');
@@ -44,7 +45,7 @@ export default function SignUpForm() {
                 setUsernameMessage(''); // Reset message
                 try {
                     const response = await axios.get<ApiResponse>(
-                        `/api/check-username-unique?username=${debouncedUsername}`
+                        `${BASE_URL}/api/user/validate-username?username=${debouncedUsername}`
                     );
                     setUsernameMessage(response.data.message);
                 } catch (error) {
@@ -57,7 +58,8 @@ export default function SignUpForm() {
                 }
             }
         };
-        // checkUsernameUnique();
+        // TODO: FIX 
+        //checkUsernameUnique();
     }, [debouncedUsername]);
 
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {

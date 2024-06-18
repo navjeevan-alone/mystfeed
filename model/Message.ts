@@ -10,7 +10,7 @@ export interface Message extends Document {
   isPublished: boolean;
 }
 
-const MessageSchema: Schema = new Schema({
+export const MessageSchema: Schema = new Schema({
   content: { type: String, required: true },
   username: { type: String, required: true },
   userId: {
@@ -22,7 +22,6 @@ const MessageSchema: Schema = new Schema({
   createdAt: { type: Date, default: Date.now },
   isPublished: { type: Boolean, default: false },
 });
-
-const MessageModel = mongoose.model<Message>("Message", MessageSchema);
-
-export { MessageSchema, MessageModel };
+//@ts-ignore
+export const MessageModel: Model<Message> =
+  mongoose.models.Message || mongoose.model<Message>("Message", MessageSchema);
