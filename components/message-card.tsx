@@ -33,7 +33,7 @@ const feedbackSchema = z.object({
 type FeedbackSchema = z.infer<typeof feedbackSchema>;
 function MessageCard({ message }: { message: MessageProps }) {
     // TODO : replace with logged in username implement authentication
-    const username = "username6"
+    const username = "username11"
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
 
@@ -123,7 +123,7 @@ function MessageCard({ message }: { message: MessageProps }) {
 
 
             </CardHeader>
-            <CardContent>
+            <CardContent className='flex-auto'>
                 {/* <p>{formatRelativeTime(message.createdAt)}</p> */}
                 <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4" method='POST'>
                     <Input
@@ -171,6 +171,7 @@ function MessageCard({ message }: { message: MessageProps }) {
                     </div>
                 </form>
             </CardContent>
+            
         </Card>
     );
 }

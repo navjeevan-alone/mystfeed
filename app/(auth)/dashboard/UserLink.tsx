@@ -1,5 +1,5 @@
 "use client"
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -14,7 +14,7 @@ import Link from "next/link"
 function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolean, username: string }) {
     const userLinkText = `http://localhost:3000/u/${username}`
     const [buttonText, setButtonText] = useState("Copy")
-    
+
     const [toggleIsAccepting, setToggleIsAccepting] = useState(isAcceptingMessage);
     const handleCopy = () => {
         let textChange;
@@ -31,21 +31,22 @@ function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolea
 
     };
     const { toast } = useToast();
-    
-    useEffect(() => {
-        const toggleAcceptingMessages = async () => {
-            try {
-                const response = await axios.post(`${BASE_URL}/api/user/toggle-allow-message`, { username });
-                console.log("Response from /api/user/toggle:", response.data);
-                // Assuming the response contains the updated isAcceptingMessage status
-                setToggleIsAccepting(!response.data.isAcceptingMessage);
 
-            } catch (error) {
-                console.error("Error toggling message acceptance:", error);
-            }
-        };
-        toggleAcceptingMessages();
-    }, [toggleIsAccepting,username]);
+    const toggleAcceptingMessages = async () => {
+        try {
+            const response = await axios.post(`${BASE_URL}/api/user/toggle-allow-message`, { username });
+            console.log("Response from /api/user/toggle:", response.data);
+            // Assuming the response contains the updated isAcceptingMessage status
+            setToggleIsAccepting(!toggleIsAccepting);
+            toast({
+                description: "Allowed sending messages"
+            })
+            
+        } catch (error) {
+            console.error("Error toggling message acceptance:", error);
+        }
+    };
+
 
     return (
         <>
@@ -54,14 +55,14 @@ function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolea
                 <Button variant="default" onClick={handleCopy}><Clipboard className="h-5 w-5 mr-2" />{buttonText}</Button>
                 <Button variant="outline" asChild>
                     <Link href={userLinkText} target="_blank">
-<SquareArrowOutUpRight className="h-5 w-5" />
+                        <SquareArrowOutUpRight className="h-5 w-5" />
                     </Link>
                 </Button>
             </div>
             <div className="flex items-center space-x-2 my-4">
-                <Switch id="allow-feedback" checked={toggleIsAccepting} onClick={() => setToggleIsAccepting(!toggleIsAccepting)} />
+                <Switch id="allow-feedback" checked={toggleIsAccepting} onCheckedChange={toggleAcceptingMessages} />
                 <Label htmlFor="allow-feedback" className=" cursor-pointer text-md">Allow people to send feedbacks</Label>
-                {toggleIsAccepting.toString()}
+               
             </div>
         </>
     )

@@ -27,12 +27,8 @@ export async function fetchMessages() {
 }
 
 export default async function Dashboard() {
- 
     const user = await UserModel.findOne({ username })
-
-    // console.log("user:", user)
     const messages = await fetchMessages()
-
 
     return (
         <div className="dashboard">
