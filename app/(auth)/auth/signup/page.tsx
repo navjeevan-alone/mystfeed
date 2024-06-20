@@ -73,7 +73,7 @@ export default function SignUpForm() {
                 variant: "success"
             });
 
-            router.replace(`/verify-code/${username}`);
+            router.replace(`/auth/verify-code/${username}`);
 
             setIsSubmitting(false);
         } catch (error) {
@@ -168,9 +168,9 @@ export default function SignUpForm() {
                                     'Sign Up'
                                 )}
                             </Button>
-                            <Button variant="outline" className="w-full">
+                            {/* <Button variant="outline" className="w-full">
                                 Sign up with GitHub
-                            </Button>
+                            </Button> */}
                         </form>
                     </Form>
                     <div className="mt-4 text-center text-sm">

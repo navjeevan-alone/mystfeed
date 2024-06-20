@@ -13,6 +13,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Input } from '@/components/ui/input';
 import { ApiResponse } from '@/types/ApiResponse';
 import { BASE_URL } from '@/constants';
+import { cn } from '@/lib/utils';
 
 
 const verifyCodeSchema = z.object({
@@ -59,12 +60,12 @@ export default function VerifyCodeForm() {
             const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/verify-code`, { username, verifyCode: data.code });
 
             toast({
-                title: 'Success',
+                title: 'Success! You can sign in now.',
                 description: response.data.message,
                 variant: "success"
             });
 
-            router.push('/dashboard'); // Redirect to a dashboard or appropriate page upon success
+            router.replace('/auth/signin'); // Redirect to a dashboard or appropriate page upon success
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;
             setError(axiosError.response?.data.message || 'Verification failed, please try again.');
@@ -89,6 +90,7 @@ export default function VerifyCodeForm() {
                 description: 'Verification code resent successfully.',
                 variant: "success"
             });
+
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;
 
@@ -135,7 +137,8 @@ export default function VerifyCodeForm() {
                 </CardContent>
                 <CardFooter className="flex flex-col">
                     <p className="text-muted-foreground mb-2 text-center">Resend Code after {resendTimer}s</p>
-                    <Button type="button" variant="outline" className="w-full" onClick={handleResend} disabled={isResendDisabled}>
+                    <Button type="button" variant="outline" className={cn("w-full", isResendDisabled ? "cursor-not-allowed" : "cursor-pointer")}
+                        onClick={handleResend} disabled={isResendDisabled}>
                         Resend Code
                     </Button>
                 </CardFooter>
