@@ -11,6 +11,9 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { ApiResponse } from '@/types/ApiResponse';
+import { BASE_URL } from '@/constants';
+
 
 const verifyCodeSchema = z.object({
     code: z.string().length(6, "Verification code must be 6 digits"),
@@ -51,10 +54,9 @@ export default function VerifyCodeForm() {
 
         if (code === "") {
             setError("Invalid verify code")
-
         }
         try {
-            const response = await axios.post(`/api/verify-code`, { username, verifyCode: data.code });
+            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/verify-code`, { username, verifyCode: data.code });
 
             toast({
                 title: 'Success',
@@ -81,12 +83,11 @@ export default function VerifyCodeForm() {
         setIsResendDisabled(true);
         setResendTimer(10);
         try {
-            const response = await axios.post(`/api/resend-verifycode`, { username });
-
+            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/resend-verifycode`, { username });
             toast({
                 title: 'Success',
                 description: 'Verification code resent successfully.',
-                variant:"success"
+                variant: "success"
             });
         } catch (error) {
             const axiosError = error as AxiosError<{ message: string }>;

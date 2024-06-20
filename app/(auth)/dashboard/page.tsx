@@ -27,6 +27,7 @@ export async function fetchMessages() {
 }
 
 export default async function Dashboard() {
+    dbConnect()
     const user = await UserModel.findOne({ username })
     const messages = await fetchMessages()
 

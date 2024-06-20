@@ -65,12 +65,12 @@ export default function SignUpForm() {
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
         setIsSubmitting(true);
         try {
-            const response = await axios.post<ApiResponse>('/api/sign-up', data);
-
+            console.log(data)
+            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/sign-up`, data);
             toast({
                 title: 'Success',
                 description: response.data.message,
-                variant:"success"
+                variant: "success"
             });
 
             router.replace(`/verify-code/${username}`);
@@ -118,7 +118,7 @@ export default function SignUpForm() {
                                                 field.onChange(e);
                                                 setUsername(e.target.value);
                                             }}
-placeholder="CoolUser"
+                                            placeholder="CoolUser"
                                         />
                                         {isCheckingUsername && <Loader2 className="animate-spin" />}
                                         {!isCheckingUsername && usernameMessage && (

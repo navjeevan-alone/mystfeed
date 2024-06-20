@@ -51,11 +51,11 @@ export async function POST(request: Request) {
 
         const updatedUser = await existingUserByEmail.save();
         // TODO : uncomment for final deployment
-        // const sendMail = sendVerificationEmail(
-        //   email,
-        //   username,
-        //   existingUserByEmail.verifyCode.toString()
-        // );
+        const sendMail = sendVerificationEmail(
+          email,
+          username,
+          existingUserByEmail.verifyCode.toString()
+        );
 
         return new Response(
           JSON.stringify({

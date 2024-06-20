@@ -9,7 +9,6 @@ export async function POST(request: Request): Promise<Response> {
         console.log("Provided username:", username, "Decoded username:", decodedUsername);
 
         const user = await UserModel.findOne({ username: decodedUsername });
-
         console.log("User found:", user);
 
         if (user !== null) {
