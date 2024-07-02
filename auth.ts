@@ -12,15 +12,17 @@ const credentialsConfig = {
   //@ts-ignore
   authorize: async (credentials) => {
     await dbConnect();
-
-    const user = await UserModel.findOne({ email: credentials.email });
-    console.log(user);
-    if (!user) {
-      throw new Error("User not found.");
+    try {
+      const user = await UserModel.findOne({ username: "username11" });
+      console.log(user);
+      if (!user) {
+        throw new Error("User not found.");
+      }
+      return user;
+    } catch (error: any) {
+      console.log(error.message);
     }
-
-    // return user object with the their profile data
-    return user;
+    return {};
   },
 };
 
