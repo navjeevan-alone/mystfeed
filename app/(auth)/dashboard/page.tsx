@@ -10,9 +10,9 @@ import { BASE_URL } from "@/constants"
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 import { MessageProps } from "@/types/dbObject"
-
-const username = "username11"
-export async function fetchMessages() {
+import { auth } from "@/auth"
+ 
+export async function fetchMessages(username:string) {
     try {
         const res = await axios.get(`${BASE_URL}/api/message/get-all?username=${username}`);
         const messages = res.data.messages || [];
@@ -28,12 +28,13 @@ export async function fetchMessages() {
 
 export default async function Dashboard() {
     dbConnect()
-    const user = await UserModel.findOne({ username })
-    const messages = await fetchMessages()
-
+    const session = await auth()
+    const user = await UserModel.findOne({ username:session?.user.username })
+    const messages = await fetchMessages(session?.user.username)
+    
     return (
         <div className="dashboard">
-            <Navbar></Navbar>
+            <Navbar username={session.user.username}></Navbar>
             <div className="container sm:mt-12 mt-4 ">
                 <h1 className="text-4xl text-left font-semibold  mb-4">User Dashboard</h1>
                 <h2 className="text-lg text-left mb-2 pl-1">Share your unique link</h2>
@@ -51,7 +52,7 @@ export default async function Dashboard() {
                 </div>
                 {messages.length > 0 ? (
                     messages.map((message) => (
-                        <MessageCard key={message._id} message={message} />
+                        <MessageCard key={message._id} message={message}/>
                     ))
                 ) : (
                     <h3 className="text-left text-muted-foreground text-xl">No messages to display</h3>

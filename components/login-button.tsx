@@ -6,15 +6,15 @@ export default function LoginButton() {
     if (session) {
         return (
             <>
-                {console.log(session)}
-                Signed in as {session.user.email} <br />
+                {/* {console.log(session)} */}
+                {/* Signed in as {session.user.email} <br /> */}
                 <Button onClick={() => signOut()}>Sign out</Button>
             </>
         )
     }
     return (
         <>
-            Not signed in <br />
+            {/* Not signed in <br /> */}
             <Button onClick={() => signIn()}>Sign in</Button>
         </>
     )

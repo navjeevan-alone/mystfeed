@@ -1,6 +1,7 @@
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 import { MessageModel, Message } from "@/model/Message";
+import { revalidatePath } from 'next/cache'
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -60,6 +61,7 @@ export async function POST(request: Request) {
     // @ts-ignore working fine
     user.message.push(message);
     await user.save();
+    revalidatePath(path)
 
     return new Response(
       JSON.stringify({

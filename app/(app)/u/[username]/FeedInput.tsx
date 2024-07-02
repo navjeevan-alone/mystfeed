@@ -21,6 +21,7 @@ import { feedMessageSchema } from "@/schemas/feedMessageSchema";
 import { User } from "@/model/User";
 import { ApiResponse } from "@/types/ApiResponse";
 import {BASE_URL} from "@/constants"
+import {revalidatePath} from "next/cache"
 interface FeedInputProps {
     username: string;
     message?: {
@@ -57,8 +58,8 @@ export default function FeedInput({ username, user }: FeedInputProps) {
                     title: "Message sent successfully",
                     description: response.data.message,
                     variant: "success",
-                });
-            } else {
+                }); 
+                        } else {
                 toast({
                     title: "Failed to send message",
                     description: response.data.message,
