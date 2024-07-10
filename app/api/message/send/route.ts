@@ -2,6 +2,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 import { MessageModel, Message } from "@/model/Message";
 import { revalidatePath } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 
 export async function POST(request: Request) {
   await dbConnect();

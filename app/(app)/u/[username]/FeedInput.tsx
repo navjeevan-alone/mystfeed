@@ -58,8 +58,8 @@ export default function FeedInput({ username, user }: FeedInputProps) {
                     title: "Message sent successfully",
                     description: response.data.message,
                     variant: "success",
-                });
-            } else {
+                }); 
+                        } else {
                 toast({
                     title: "Failed to send message",
                     description: response.data.message,
