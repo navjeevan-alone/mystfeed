@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ApiResponse } from '@/types/ApiResponse';
-import { BASE_URL } from '@/constants';
+import { USER_VERIFY_CODE,USER_RESEND_VERIFY_CODE } from '@/constants';
 import { cn } from '@/lib/utils';
 
 
@@ -57,7 +57,7 @@ export default function VerifyCodeForm() {
             setError("Invalid verify code")
         }
         try {
-            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/verify-code`, { username, verifyCode: data.code });
+            const response = await axios.post<ApiResponse>(USER_VERIFY_CODE, { username, verifyCode: data.code });
 
             toast({
                 title: 'Success! You can sign in now.',
@@ -84,7 +84,7 @@ export default function VerifyCodeForm() {
         setIsResendDisabled(true);
         setResendTimer(10);
         try {
-            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/resend-verifycode`, { username });
+            const response = await axios.post<ApiResponse>(USER_RESEND_VERIFY_CODE, { username });
             toast({
                 title: 'Success',
                 description: 'Verification code resent successfully.',

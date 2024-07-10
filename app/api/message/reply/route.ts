@@ -1,12 +1,14 @@
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 import { MessageModel } from "@/model/Message";
-
+import {auth} from "@/auth"
 export async function POST(request: Request) {
   await dbConnect();
 
   try {
-    const { username, messageId, reply } = await request.json();
+    const session = await auth();
+    const username = session?.user.username;
+    const {messageId, reply } = await request.json();
 
     // Check if user with the given username exists
     const user = await UserModel.findOne({ username });

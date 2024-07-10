@@ -10,10 +10,9 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
 import { Trash, Reply, Loader2 } from 'lucide-react';
 import axios, { AxiosError } from 'axios';
-import { BASE_URL } from "@/constants"
-import { formatRelativeTime } from "@/lib/timeUtils"
-import { revalidatePath } from 'next/cache';
-
+import { MESSAGE_REPLY } from "@/constants"
+import { formatRelativeTime } from "@/lib/timeUtils" 
+ 
 interface MessageProps {
     _id: string;
     content: string;
@@ -31,9 +30,8 @@ const feedbackSchema = z.object({
 });
 
 type FeedbackSchema = z.infer<typeof feedbackSchema>;
-function MessageCard({ message }: { message: MessageProps }) {
-    // TODO : replace with logged in username implement authentication
-    const username = "username11"
+function MessageCard({ message,onDelete }: { message: MessageProps,onDelete:any }) {
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toast } = useToast();
 
@@ -64,7 +62,7 @@ function MessageCard({ message }: { message: MessageProps }) {
                 })
                 return
             }
-            await axios.post(`${BASE_URL}/api/message/reply/`, { messageId: message._id, reply: data.reply, username: username });
+            await axios.post(MESSAGE_REPLY, { messageId: message._id, reply: data.reply });
 
             toast({
                 title: 'Success',
@@ -85,33 +83,6 @@ function MessageCard({ message }: { message: MessageProps }) {
         }
     };
 
-    const handleDeleteMessage = async () => {
-        try {
-            // Replace with actual API call
-            await axios.delete(`${BASE_URL}/api/message/delete`, {
-                data: {
-                    username: username,
-                    messageId: message._id
-                }
-            });
-
-            toast({
-                title: 'Deleted',
-                description: 'Message deleted successfully.',
-                variant: 'success',
-            });
-
-            console.log("Message deleted id:", message._id);
-            revalidatePath("/dashboard")
-        } catch (error) {
-            toast({
-                title: 'Deletion Failed',
-                description: 'An error occurred during deletion.',
-                variant: 'destructive',
-            });
-        }
-
-    };
 
     return (
         <Card className="flex-1 flex-basis-[256px]">
@@ -164,7 +135,8 @@ function MessageCard({ message }: { message: MessageProps }) {
                                             Close
                                         </Button>
                                     </DialogClose>
-                                    <Button variant="destructive" onClick={handleDeleteMessage}>Delete</Button>
+                                    <Button variant="destructive" onClick={() => onDelete(message._id)}>Delete</Button> 
+
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>

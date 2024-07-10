@@ -20,7 +20,8 @@ import { toast } from "@/components/ui/use-toast";
 import { feedMessageSchema } from "@/schemas/feedMessageSchema";
 import { User } from "@/model/User";
 import { ApiResponse } from "@/types/ApiResponse";
-import {BASE_URL} from "@/constants"
+import { BASE_URL, MESSAGE_SEND } from "@/constants"
+// import { revalidatePath } from "next/cache"
 interface FeedInputProps {
     username: string;
     message?: {
@@ -41,15 +42,14 @@ export default function FeedInput({ username, user }: FeedInputProps) {
     const form = useForm<z.infer<typeof feedMessageSchema>>({
         resolver: zodResolver(feedMessageSchema),
     });
-    if(user && !user.isVerified){
+    if (user && !user.isVerified) {
         return <div>User is not verified</div>
     }
 
     async function onSubmit(data: z.infer<typeof feedMessageSchema>) {
         try {
-            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/message/send`, {
-                username,
-                content: data.content,
+            const response = await axios.post<ApiResponse>(MESSAGE_SEND, {
+                 content: data.content,
             });
 
             if (response.data.success) {
@@ -57,15 +57,16 @@ export default function FeedInput({ username, user }: FeedInputProps) {
                     title: "Message sent successfully",
                     description: response.data.message,
                     variant: "success",
-                });
-            } else {
+                }); 
+
+                        } else {
                 toast({
                     title: "Failed to send message",
                     description: response.data.message,
                     variant: "destructive",
                 });
             }
-        } catch (error:any) {
+        } catch (error: any) {
             console.error(error)
             toast({
                 title: "An error occurred",

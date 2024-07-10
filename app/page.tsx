@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import LoginButton from '@/components/login-button';
 export default function Home() {
   return (
 
@@ -13,6 +14,9 @@ export default function Home() {
         <Button className="mx-auto" asChild>
           <Link href="/signup">Create Link</Link>
         </Button>
+        
+        <LoginButton/>
+
       </div>
     </div>
 
