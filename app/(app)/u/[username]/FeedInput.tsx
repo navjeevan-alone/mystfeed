@@ -20,7 +20,7 @@ import { toast } from "@/components/ui/use-toast";
 import { feedMessageSchema } from "@/schemas/feedMessageSchema";
 import { User } from "@/model/User";
 import { ApiResponse } from "@/types/ApiResponse";
-import { BASE_URL } from "@/constants"
+import { BASE_URL, MESSAGE_DELETE } from "@/constants"
 // import { revalidatePath } from "next/cache"
 interface FeedInputProps {
     username: string;
@@ -48,9 +48,8 @@ export default function FeedInput({ username, user }: FeedInputProps) {
 
     async function onSubmit(data: z.infer<typeof feedMessageSchema>) {
         try {
-            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/message/send`, {
-                username,
-                content: data.content,
+            const response = await axios.post<ApiResponse>(`${MESSAGE_DELETE}`, {
+                 content: data.content,
             });
 
             if (response.data.success) {
@@ -59,6 +58,7 @@ export default function FeedInput({ username, user }: FeedInputProps) {
                     description: response.data.message,
                     variant: "success",
                 }); 
+
                         } else {
                 toast({
                     title: "Failed to send message",

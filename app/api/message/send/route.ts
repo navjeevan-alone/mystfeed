@@ -1,15 +1,16 @@
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
 import { MessageModel, Message } from "@/model/Message";
-import { revalidatePath } from 'next/cache'
-import { revalidatePath } from 'next/cache'
-
+import { revalidatePath } from 'next/cache' 
+import {auth} from "@/auth"
 export async function POST(request: Request) {
   await dbConnect();
 
   try {
-    const { username, content } = await request.json();
-
+    const session = await auth();
+    const username = session?.user.username;
+    const {content } = await request.json();
+    
     // Check if user with the given username exists
     const user = await UserModel.findOne({ username });
 
@@ -62,9 +63,7 @@ export async function POST(request: Request) {
     // @ts-ignore working fine
     user.message.push(message);
     await user.save();
-    revalidatePath("/")
-    // revalidatePath(`/u`)
-
+    revalidatePath("/u/${username}") 
     return new Response(
       JSON.stringify({
         success: true,
