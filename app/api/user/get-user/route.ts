@@ -4,14 +4,31 @@ import { MessageModel } from "@/model/Message";
 
 export async function GET(req: Request) {
   try {
-    const { identifier } = await req.json();
+    const url = new URL(req.url);
+    const identifier = url.searchParams.get("identifier");
+
+    if (!identifier) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Identifier is required",
+          user: null,
+        }),
+        { status: 400 }
+      );
+    }
     await dbConnect();
 
-    const user = await MessageModel.findOne({ content: "Mystic Message 6" });
-
+    const user = await UserModel.findOne({
+      $or: [{ email: identifier }, { username: identifier }],
+    });
     if (!user) {
       return new Response(
-        JSON.stringify({ success: false, message: "Couldn't find user" }),
+        JSON.stringify({
+          success: false,
+          message: "Couldn't find user",
+          user: null,
+        }),
         { status: 404 }
       );
     }
@@ -22,13 +39,17 @@ export async function GET(req: Request) {
     const message = user.isAcceptingMessage
       ? "Allowed accepting messages"
       : "Denied accepting messages";
-    return new Response(JSON.stringify({ success: true, message }), {
+    return new Response(JSON.stringify({ success: true, message, user }), {
       status: 200,
     });
   } catch (error) {
     console.error("Error handling GET request:", error);
     return new Response(
-      JSON.stringify({ success: false, message: "Internal Server Error" }),
+      JSON.stringify({
+        success: false,
+        message: "Internal Server Error",
+        user: null,
+      }),
       { status: 500 }
     );
   }

@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
- 
+
 export interface User extends Document {
   username: string;
   email: string;
@@ -54,6 +54,8 @@ const UserSchema: Schema = new Schema({
   ],
 });
 
+ 
 export const UserModel =
   (mongoose.models?.User as mongoose.Model<User>) ||
   mongoose.model<User>("User", UserSchema);
+ 
