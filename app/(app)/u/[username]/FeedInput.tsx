@@ -20,7 +20,7 @@ import { toast } from "@/components/ui/use-toast";
 import { feedMessageSchema } from "@/schemas/feedMessageSchema";
 import { User } from "@/model/User";
 import { ApiResponse } from "@/types/ApiResponse";
-import { BASE_URL, MESSAGE_DELETE } from "@/constants"
+import { BASE_URL, MESSAGE_SEND } from "@/constants"
 // import { revalidatePath } from "next/cache"
 interface FeedInputProps {
     username: string;
@@ -48,7 +48,7 @@ export default function FeedInput({ username, user }: FeedInputProps) {
 
     async function onSubmit(data: z.infer<typeof feedMessageSchema>) {
         try {
-            const response = await axios.post<ApiResponse>(`${MESSAGE_DELETE}`, {
+            const response = await axios.post<ApiResponse>(MESSAGE_SEND, {
                  content: data.content,
             });
 

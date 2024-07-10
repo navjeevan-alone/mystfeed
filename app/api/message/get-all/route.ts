@@ -1,6 +1,7 @@
 import { dbConnect } from "@/lib/dbConnect";
 import { MessageModel } from "@/model/Message";
 import {auth } from "@/auth"
+
 export async function GET(request: Request) {
   await dbConnect();
 
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const session = await auth()
     const username = session?.user.username ||  url.searchParams.get("username");
-
+    console.log(username)
     if (!username) {
       return new Response(
         JSON.stringify({

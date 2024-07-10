@@ -12,7 +12,7 @@ function error() {
           This page doesnt exists
         </p>
         <Button asChild>
-          <Link href="/dashboard"> Go To Homepage
+          <Link href="/"> Go To Homepage
           </Link>
         </Button>
       </div> 

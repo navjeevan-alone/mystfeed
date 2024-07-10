@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
 import { Trash, Reply, Loader2 } from 'lucide-react';
 import axios, { AxiosError } from 'axios';
-import { BASE_URL } from "@/constants"
+import { MESSAGE_REPLY } from "@/constants"
 import { formatRelativeTime } from "@/lib/timeUtils" 
  
 interface MessageProps {
@@ -62,7 +62,7 @@ function MessageCard({ message,onDelete }: { message: MessageProps,onDelete:any 
                 })
                 return
             }
-            await axios.post(`${BASE_URL}/api/message/reply/`, { messageId: message._id, reply: data.reply });
+            await axios.post(MESSAGE_REPLY, { messageId: message._id, reply: data.reply });
 
             toast({
                 title: 'Success',

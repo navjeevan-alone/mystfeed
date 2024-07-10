@@ -8,7 +8,7 @@ import { Clipboard, Copy, SquareArrowOutUpRight } from "lucide-react"
 import { copyToClipboard } from '@/lib/clipboard'
 import { useToast } from '@/components/ui/use-toast';
 import axios from "axios"
-import { BASE_URL } from "@/constants"
+import { BASE_URL, USER_TOGGLE_ALLOW_MESSAGE } from "@/constants"
 import Link from "next/link"
 
 function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolean, username: string }) {
@@ -34,12 +34,12 @@ function UserLink({ isAcceptingMessage, username }: { isAcceptingMessage: boolea
 
     const toggleAcceptingMessages = async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/api/user/toggle-allow-message`, { username });
+            const response = await axios.post(USER_TOGGLE_ALLOW_MESSAGE);
             console.log("Response from /api/user/toggle:", response.data);
             // Assuming the response contains the updated isAcceptingMessage status
             setToggleIsAccepting(!toggleIsAccepting);
             toast({
-                description: "Allowed sending messages"
+                description:response?.data.message
             })
             
         } catch (error) {

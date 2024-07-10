@@ -17,7 +17,7 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
-import { BASE_URL } from '@/constants';
+import { USER_SIGN_UP } from '@/constants';
 
 export default function SignUpForm() {
     const [username, setUsername] = useState('');
@@ -66,7 +66,7 @@ export default function SignUpForm() {
         setIsSubmitting(true);
         try {
             console.log(data)
-            const response = await axios.post<ApiResponse>(`${BASE_URL}/api/user/sign-up`, data);
+            const response = await axios.post<ApiResponse>(USER_SIGN_UP, data);
             toast({
                 title: 'Success',
                 description: response.data.message,

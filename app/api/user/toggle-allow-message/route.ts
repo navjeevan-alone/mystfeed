@@ -1,9 +1,11 @@
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
-
+import {auth } from "@/auth"
+import {revalidatePath} from "next/cache"
 export async function POST(req: Request) {
   try {
-    const { username } = await req.json();
+    const session = await auth();
+    const username = session?.user.username;
     await dbConnect();
 
     // Find the user by username
@@ -21,7 +23,7 @@ export async function POST(req: Request) {
     // Toggle the isAcceptingMessages field
     user.isAcceptingMessage = !user.isAcceptingMessage;
     await user.save();
-
+    revalidatePath("/dashboard")
     // Send a successful response with a meaningful message
     const message = user.isAcceptingMessage
       ? "Allowed accepting messages"
