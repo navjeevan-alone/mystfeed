@@ -20,7 +20,8 @@ import { toast } from "@/components/ui/use-toast";
 import { feedMessageSchema } from "@/schemas/feedMessageSchema";
 import { User } from "@/model/User";
 import { ApiResponse } from "@/types/ApiResponse";
-import {BASE_URL} from "@/constants"
+import { BASE_URL } from "@/constants"
+// import { revalidatePath } from "next/cache"
 interface FeedInputProps {
     username: string;
     message?: {
@@ -41,7 +42,7 @@ export default function FeedInput({ username, user }: FeedInputProps) {
     const form = useForm<z.infer<typeof feedMessageSchema>>({
         resolver: zodResolver(feedMessageSchema),
     });
-    if(user && !user.isVerified){
+    if (user && !user.isVerified) {
         return <div>User is not verified</div>
     }
 
@@ -65,7 +66,7 @@ export default function FeedInput({ username, user }: FeedInputProps) {
                     variant: "destructive",
                 });
             }
-        } catch (error:any) {
+        } catch (error: any) {
             console.error(error)
             toast({
                 title: "An error occurred",
